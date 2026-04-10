@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="x-img" href="love.jpg">
+<title>Love Letter</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#dcd0e0,#f7e6f7);
+  overflow:hidden;
+}
+
+/* container */
+.container{
+  text-align:center;
+  width:100%;
+  max-width:900px;
+  position:relative;
+}
+
+/* title */
+h2{
+  margin-bottom:20px;
+}
+
+/* ===== 4 PICTURES ===== */
+.gallery{
+  position:absolute;
+  top:10px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 20px;
+}
+
+.side{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.side img{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  border:2px solid white;
+}
+
+/* envelope */
+.envelope{
+  position:relative;
+  width:60%;
+  max-width:350px;
+  height:220px;
+  background:#ff5a4e;
+  margin:auto;
+  border-radius:8px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.2);
+  overflow:visible;
+  transition:0.6s ease;
+  margin-top:120px;
+}
+
+/* flap */
+.flap{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ff7a6d;
+  clip-path:polygon(0 0,100% 0,50% 50%);
+  transform-origin:top;
+  transition:0.6s;
+  z-index:3;
+}
+
+/* paper */
+.paper{
+  position:absolute;
+  width:85%;
+  height:160px;
+  background:white;
+  left:50%;
+  top:120px;
+  transform:translateX(-50%) scale(0.5);
+  border-radius:8px;
+  padding:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  transition:0.8s ease;
+  opacity:0;
+  z-index:1;
+  overflow-y:auto;
+}
+
+/* open */
+.open .flap{
+  transform:rotateX(180deg);
+}
+
+.open .paper{
+  opacity:1;
+  top:20px;
+  transform:translateX(-50%) scale(1);
+}
+
+/* zoom */
+.zoom .paper{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%) scale(2);
+  width:500px;
+  height:300px;
+  z-index:1000;
+}
+
+/* buttons */
+.buttons{
+  margin-top:20px;
+  position:relative;
+  z-index:2000;
+}
+
+/* move buttons when open */
+.envelope.open ~ .buttons{
+  margin-top:260px;
+}
+
+/* zoom buttons */
+.zoom .buttons{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+/* buttons */
+button{
+  padding:10px 20px;
+  border:1px solid #ff5a4e;
+  background:white;
+  cursor:pointer;
+  margin:5px;
+  border-radius:6px;
+  font-size:16px;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#ff5a4e;
+  color:white;
+}
+
+/* responsive */
+@media (min-width:768px){
+  .side img{
+    width:150px;
+    height:150px;
+  }
+
+  .envelope{
+    margin-top:140px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Buksan mo dali🥺</h2>
+
+  <!-- 4 IMAGES -->
+  <div class="gallery">
+    <div class="side left">
+      <img src="i.jpg" alt="">
+      <img src="s.jpg" alt="">
+      <img src="t.jpg" alt="">
+      <img src="o.jpg" alt="">
+    </div>
+
+    <div class="side right">
+      <img src="a.jpg" alt="">
+      <img src="b.jpg" alt="">
+      <img src="e.jpg" alt="">
+      <img src="l.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- ENVELOPE -->
+  <div class="envelope" id="envelope">
+
+    <div class="flap"></div>
+
+    <div class="paper">
+      <h3>For My Daba</h3>
+      <p>
+        HAPPY 3 YEARS AND 1 MONTHSARY TO US MY DABA<br><br>
+
+        I hope our relationship never ends, and thank you for always being there for me. I hope that when I change, you will still be by my side and continue to be patient and understanding while waiting for me. I hope you understand me more, because you are the more understanding one between us. I hope you stay with me and continue to be patient. I know you are already very tired of me, and I understand that. Even if everything feels confusing, heavy, and difficult, I still hope you choose to stay with me, because I really want to prove something to you.<br><br>
+
+        I love you so much, and I’m really sorry for what I did. Sorry this is all I can give you for now, I don’t have a physical gift yet. I hope you appreciate this. Thank you so much, Daba. I love you so muchhhh!
+      </p>
+    </div>
+
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="buttons">
+    <button onclick="openLetter()">OPEN</button>
+    <button onclick="closeLetter()">CLOSE</button>
+  </div>
+
+</div>
+
+<script>
+
+let envelope = document.getElementById("envelope");
+
+function openLetter(){
+  envelope.classList.add("open");
+
+  setTimeout(()=>{
+    envelope.classList.add("zoom");
+  },500);
+}
+
+function closeLetter(){
+  envelope.classList.remove("zoom");
+
+  setTimeout(()=>{
+    envelope.classList.remove("open");
+  },400);
+}
+
+</script>
+
+</body>
+</html>
